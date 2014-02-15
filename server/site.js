@@ -9,8 +9,36 @@
  */
 
 var _site = (function() {
+  var _data = {
+    objects: {
+      canvas: {}
+    },
+    state: {
+      started: false;
+    }
+  };
+
+  var _event = function( object, event, action ) {
+    if (window.addEventListener) {
+      object.addEventListener(event, action, false);
+    } else if (window.attachEvent) {
+      object.attachEvent('on'+event, action);
+    } else {
+      console.log('*** Error: Cannot instantiate object!');
+    }
+  }
+
   var _init = function() {
-    return {};
+    _data.objects['canvas'] = document.getElementById('hscanvas');
+    _event(_data.objects.canvas, click, _startGame);
+    return this;
+  };
+
+  var _startGame = function() {
+    if (!_data.state.started) {
+      _data.state.started == true;
+      _hs.init();
+    }
   };
 
   return {
